@@ -5,12 +5,22 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.novust</groupId>
-    <artifactId>brewday</artifactId>
+    <artifactId>brewday-parent</artifactId>
+    <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
+
+
+    <modules>
+        <module>brewday-shared</module>
+        <module>brewday-service</module>
+    </modules>
 
     <properties>
         <jdk.version>1.8</jdk.version>
+        <jetty.version>9.2.7.v20150116</jetty.version>
+        <spring.version>4.1.4.RELEASE</spring.version>
     </properties>
+
     <dependencies>
 
     </dependencies>
@@ -20,8 +30,8 @@
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>
-                    <source>1.8</source>
-                    <target>1.8</target>
+                    <source>${jdk.version}</source>
+                    <target>${jdk.version}</target>
                 </configuration>
             </plugin>
         </plugins>

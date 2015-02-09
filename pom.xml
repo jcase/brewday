@@ -17,6 +17,13 @@
 
     <properties>
         <jdk.version>1.8</jdk.version>
+
+        <apache.commons-cli.version>1.2</apache.commons-cli.version>
+        <apache.commons-lang3.version>3.3.2</apache.commons-lang3.version>
+
+        <slf4j.version>1.7.10</slf4j.version>
+        <log4j.version>2.1</log4j.version>
+
         <jetty.version>9.2.7.v20150116</jetty.version>
         <spring.version>4.1.4.RELEASE</spring.version>
     </properties>
@@ -29,6 +36,7 @@
         <plugins>
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.1</version>
                 <configuration>
                     <source>${jdk.version}</source>
                     <target>${jdk.version}</target>

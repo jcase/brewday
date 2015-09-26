@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
+import org.springframework.web.context.ContextLoaderListener;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
 
 public class BrewDayService {
@@ -39,9 +40,9 @@ public class BrewDayService {
         logger.info("Got config file " + configFileLocation);
 
         AnnotationConfigWebApplicationContext ctx = new AnnotationConfigWebApplicationContext();
-        ctx.scan("com.novust.brewday");
         PropertySourcesPlaceholderConfigurer propertyPlaceholderConfigurer = getPropertyConfigurer(configFileLocation);
         ctx.addBeanFactoryPostProcessor(propertyPlaceholderConfigurer);
+        ctx.register(BrewDayServerConfiguration.class);
         ctx.refresh();
 
         HelloThing bean = ctx.getBean(HelloThing.class);

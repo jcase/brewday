@@ -1,0 +1,14 @@
+[
+  {
+    "name":"US05",
+    "flocculation": 70
+  },
+  {
+    "name":"Nottingham",
+    "flocculation": 50
+  },
+  {
+    "name":"Wyeast2010",
+    "flocculation": 65
+  }
+]

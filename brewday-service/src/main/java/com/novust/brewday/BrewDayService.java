@@ -8,7 +8,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
-import org.springframework.web.context.ContextLoaderListener;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
 
 public class BrewDayService {
@@ -45,9 +44,6 @@ public class BrewDayService {
         ctx.register(BrewDayServerConfiguration.class);
         ctx.refresh();
 
-        HelloThing bean = ctx.getBean(HelloThing.class);
-        System.out.println("HelloBean tells us : " + bean.getMessage());
-
         Server server = ctx.getBean(Server.class);
         logger.info("Starting server...");
         try {
@@ -63,7 +59,7 @@ public class BrewDayService {
 
     public static PropertySourcesPlaceholderConfigurer getPropertyConfigurer(String propFile) {
         PropertySourcesPlaceholderConfigurer ppc = new PropertySourcesPlaceholderConfigurer();
-        Resource[] resources = new ClassPathResource[] { new ClassPathResource(propFile) };
+        Resource[] resources = new Resource[] { new ClassPathResource(propFile) };
         ppc.setLocations(resources);
         return ppc;
     }

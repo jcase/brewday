@@ -1,16 +1,15 @@
 package com.novust.shared.data;
 
 
-import org.springframework.stereotype.Component;
-
-import java.util.Arrays;
-import java.util.List;
-
-@Component
 public class HopData {
+    public String name;
+    public String description;
 
-    public List<String> getHopVarieties() {
-        return Arrays.asList("Cascade","Chinook","Fuggle");
+    public String getName() {
+        return name;
     }
 
+    public String getDescription() {
+        return description;
+    }
 }

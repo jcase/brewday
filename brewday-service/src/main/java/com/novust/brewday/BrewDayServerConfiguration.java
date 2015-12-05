@@ -1,7 +1,7 @@
 package com.novust.brewday;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.novust.shared.BrewdaySharedConfiguration;
-import com.novust.shared.data.HopData;
 import org.eclipse.jetty.server.*;
 import org.eclipse.jetty.server.handler.ContextHandlerCollection;
 import org.eclipse.jetty.servlet.DefaultServlet;
@@ -9,25 +9,27 @@ import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.servlet.ServletContainer;
+import org.reflections.Reflections;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Import;
+import org.springframework.context.annotation.*;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.web.context.ContextLoaderListener;
 import org.springframework.web.context.WebApplicationContext;
 
+import javax.ws.rs.Path;
 import java.io.IOException;
+import java.util.Set;
 
 @Configuration
 @ComponentScan(basePackageClasses = {BrewDayServerConfiguration.class})
+@ImportResource("classpath:META-INF/spring/spring.xml")
 @Import({BrewdaySharedConfiguration.class})
 public class BrewDayServerConfiguration implements ApplicationContextAware {
     private static final Logger logger = LoggerFactory.getLogger(BrewDayServerConfiguration.class);
@@ -36,9 +38,6 @@ public class BrewDayServerConfiguration implements ApplicationContextAware {
 
     @Autowired
     BrewdaySharedConfiguration sharedConfiguration;
-
-    @Autowired
-    HopData hopData;
 
     @Value("${http.bindPort:8080}")
     private int httpBindPort;
@@ -53,11 +52,6 @@ public class BrewDayServerConfiguration implements ApplicationContextAware {
 
     @Value("${http.port:8080}")
     int port;
-
-    @Bean
-    public HelloThing getThing() {
-        return new HelloThing(helloWorld);
-    }
 
     @Bean
     public Server getServer(ContextHandlerCollection handlerCollection) {
@@ -106,9 +100,19 @@ public class BrewDayServerConfiguration implements ApplicationContextAware {
     }
 
     @Bean
-    public ResourceConfig getResourceConfig() {
+    @Qualifier("restControllers")
+    public ClassCollection getRestClasses() {
+        Reflections reflections = new Reflections("com.novust.brewday.rest");
+        Set<Class<?>> restClasses = reflections.getTypesAnnotatedWith(Path.class);
+        return new ClassCollection(restClasses);
+    }
+
+    @Bean
+    public ResourceConfig getResourceConfig(@Qualifier("restControllers") ClassCollection restControllerClasses) {
         ResourceConfig resourceConfig = new ResourceConfig();
-        resourceConfig.register(com.novust.brewday.rest.HopService.class);
+        for(Class restControllerClass : restControllerClasses.classSet) {
+            resourceConfig.register(restControllerClass);
+        }
         return resourceConfig;
     }
 
@@ -122,6 +126,20 @@ public class BrewDayServerConfiguration implements ApplicationContextAware {
         ServletHolder servletHolder = new ServletHolder(servletContainer);
         servletContextHandler.addServlet(servletHolder, "/*");
         return servletContextHandler;
+    }
+
+    @Bean(name="defaultObjectMapper")
+    public ObjectMapper objectMapper() {
+        return new ObjectMapper();
+    }
+
+    static class ClassCollection {
+        public Set<Class<?>> classSet;
+
+        public ClassCollection(Set<Class<?>> classSet) {
+            this.classSet = classSet;
+        }
+
     }
 
 }

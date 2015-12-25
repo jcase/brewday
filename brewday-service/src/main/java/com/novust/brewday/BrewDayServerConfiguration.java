@@ -2,6 +2,7 @@ package com.novust.brewday;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.novust.shared.BrewdaySharedConfiguration;
+import org.apache.commons.lang3.StringUtils;
 import org.eclipse.jetty.server.*;
 import org.eclipse.jetty.server.handler.ContextHandlerCollection;
 import org.eclipse.jetty.servlet.DefaultServlet;
@@ -20,6 +21,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.*;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.FileSystemResource;
 import org.springframework.web.context.ContextLoaderListener;
 import org.springframework.web.context.WebApplicationContext;
 
@@ -89,6 +91,16 @@ public class BrewDayServerConfiguration implements ApplicationContextAware {
         contextHandler.setContextPath("/");
 
         String webapp = new ClassPathResource("webapp").getURI().toString();
+
+        String staticResourceProperty = System.getProperty("brewday.static.resources");
+        if(StringUtils.isNotBlank(staticResourceProperty)) {
+            FileSystemResource fileSystemResource = new FileSystemResource(staticResourceProperty);
+            if(fileSystemResource.exists()) {
+                webapp = fileSystemResource.getURI().toString();
+            } else {
+                logger.error("brewday.static.resources was set, but invalid! {}", staticResourceProperty);
+            }
+        }
 
         ServletHolder servletHolder = new ServletHolder("static", DefaultServlet.class);
         servletHolder.setInitParameter("resourceBase", webapp);

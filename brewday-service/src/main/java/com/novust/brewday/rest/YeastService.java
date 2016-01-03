@@ -20,7 +20,6 @@ public class YeastService {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    @Path("/")
     public List<YeastData> getAllYeast() {
         return yeastDataDao.getAllData();
     }

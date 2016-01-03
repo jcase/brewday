@@ -34,6 +34,10 @@ public abstract class BaseDataDao<T> implements DataDao<T> {
         daoData = data;
     }
 
+    public void addData(T data) {
+        daoData.add(data);
+    }
+
     @Override
     public List<T> getAllData() {
         return daoData;
@@ -50,5 +54,4 @@ public abstract class BaseDataDao<T> implements DataDao<T> {
             return;
         }
     }
-
 }

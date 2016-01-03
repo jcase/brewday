@@ -7,11 +7,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 import java.util.List;
 
 @Component
@@ -29,12 +27,31 @@ public class HopService {
         return hopName;
     }
 
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response createHop(HopData newHopData) {
+        logger.info("Creating hop " + newHopData.getName());
+        newHopData.id = stripNonAlpha(newHopData.getName());
+        if(hopDataDao.exists(newHopData.id)) {
+            return Response.status(Response.Status.CONFLICT).build();
+        } else {
+            hopDataDao.addData(newHopData);
+            return Response.ok().entity(newHopData).build();
+        }
+    }
+
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    @Path("/")
     public List<HopData> getAllHops() {
         logger.info("Getting hop list");
         List<HopData> allData = hopDataDao.getAllData();
         return allData;
     }
+
+    String stripNonAlpha(String input) {
+        String step = input.replaceAll("\\P{Alnum}", "");
+        return step.replaceAll("\\s","");
+    }
+
 }

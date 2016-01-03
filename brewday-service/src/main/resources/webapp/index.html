@@ -1,27 +1,39 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="brewDay">
 <head lang="en">
     <meta charset="UTF-8">
     <title>BrewDay</title>
-    <script src="js/jquery-2.1.4.js" type="text/javascript" charset="utf-8"></script>
-    <script src="js/sammy.js" type="text/javascript" charset="utf-8"></script>
-    <script src="js/brewday.js" type="text/javascript" charset="utf-8"></script>
+    <script src="js/angular/angular.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="js/angular/angular-route.min.js" type="text/javascript" charset="utf-8"></script>
+
+    <script src="js/brew_day.js" type="text/javascript" charset="utf-8"></script>
+    <script src="js/hops_controllers.js" type="text/javascript" charset="utf-8"></script>
+    <script src="js/yeasts_controllers.js" type="text/javascript" charset="utf-8"></script>
+
+    <link rel="stylesheet" href="css/bootstrap/bootstrap.min.css">
 </head>
 <body>
 
-<div id="container">
-    <div id="header">
-        <h1>BrewDay</h1>
-        Welcome to brewday.
+<div class="container">
+    <div class="page-header">
+        <h1>Welcome to brewday</h1>
     </div>
-    <ul>
-        <li><a href="#/hops">Hops</a></li>
-        <li><a href="#/yeast">Yeast</a></li>
+
+    <ul class="nav nav-pills">
+        <li role="presentation" class="active"><a href="#">Home</a></li>
+        <li role="presentation"><a href="#/hops">Hops</a></li>
+        <li role="presentation"><a href="#/yeasts">Yeast</a></li>
     </ul>
-    <div id="main">
-    </div>
 </div>
 
+<div class="container">
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <div ng-view>
+            </div>
+        </div>
+    </div>
+</div>
 
 </body>
 </html>

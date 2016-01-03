@@ -1,0 +1,20 @@
+<div class="container">
+    <table class="table">
+        <thead>
+            <td>Name</td>
+            <td>Description</td>
+        </thead>
+        <tr ng-repeat="hop in hops">
+            <td>{{hop.id}}</td>
+            <td>{{hop.name}}</td>
+            <td>{{hop.description}}</td>
+        </tr>
+    </table>
+</div>
+<div class="container" id="hop-creation" ng-controller="HopsCreationController">
+    <form ng-submit="createHop()">
+        <input type="text" ng-model="formData.hopName" name="hopName"/>
+        <input type="text" ng-model="formData.hopDescription" name="hopDescription"/>
+        <input type="submit" name="submit" value="Submit" />
+    </form>
+</div>

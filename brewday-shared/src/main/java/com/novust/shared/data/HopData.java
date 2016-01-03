@@ -1,7 +1,12 @@
 package com.novust.shared.data;
 
 
-public class HopData {
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+@Document(collection = "hopData")
+public class HopData implements AppData {
+    @Id
     public String id;
     public String name;
     public String description;

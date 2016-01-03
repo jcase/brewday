@@ -1,40 +1,38 @@
 package com.novust.shared.dao;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.type.CollectionType;
-import com.novust.shared.DaoDataInpuStreamSource;
-import com.novust.shared.ObjectMapperSource;
+import com.novust.shared.dao.source.AppDataSource;
+import com.novust.shared.dao.source.AppDataSourceFactory;
+import com.novust.shared.data.AppData;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.annotation.PostConstruct;
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.List;
 
-public abstract class BaseDataDao<T> implements DataDao<T> {
+public abstract class BaseDataDao<T extends AppData> implements DataDao<T> {
     static Logger logger = LoggerFactory.getLogger(BaseDataDao.class);
 
+    AppDataSource appDataSource;
     List<T> daoData;
 
     @Autowired
-    DaoDataInpuStreamSource inputStreamSource;
-
-    @Autowired
-    ObjectMapperSource objectMapperSource;
-
+    AppDataSourceFactory appDataSourceFactory;
 
     @PostConstruct
     void postConstruct() {
-        loadData(inputStreamSource.getDataInputStream(getDataType()));
+        appDataSource = appDataSourceFactory.getAppDataSource(getDataType());
+        if(appDataSource == null) {
+            throw new IllegalStateException("Missing appDataSource for dataType " + getDataType().getName());
+        }
+        loadData();
     }
 
     protected void setData(List<T> data) {
         daoData = data;
     }
-
     public void addData(T data) {
+        appDataSource.addData(data);
         daoData.add(data);
     }
 
@@ -43,15 +41,8 @@ public abstract class BaseDataDao<T> implements DataDao<T> {
         return daoData;
     }
 
-    void loadData(InputStream dataInputStream) {
-        ObjectMapper mapper = objectMapperSource.getObjectMapper();
-        try {
-            CollectionType collectionType = mapper.getTypeFactory().constructCollectionType(List.class, getDataType());
-            List<T> data = mapper.readValue(dataInputStream, collectionType);
-            setData(data);
-        } catch (IOException e) {
-            logger.error("Could not read datas", e);
-            return;
-        }
+    void loadData() {
+        List data = appDataSource.loadData(getDataType());
+        setData(data);
     }
 }

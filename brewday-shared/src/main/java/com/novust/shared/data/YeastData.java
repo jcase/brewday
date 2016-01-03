@@ -1,6 +1,6 @@
 package com.novust.shared.data;
 
-public class YeastData {
+public class YeastData implements AppData {
     public String name;
     public int flocculation;
 

@@ -1,4 +1,4 @@
-package com.novust.shared.dao;
+package com.novust.shared.dao.source;
 
 import com.novust.shared.ObjectMapperSource;
 import com.novust.shared.data.HopData;
@@ -10,30 +10,30 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 import java.io.InputStream;
 import java.util.List;
+import java.util.Map;
 
+import static com.google.common.collect.Maps.newHashMap;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
-/**
- * Created by johncase on 9/28/15.
- */
 @RunWith(MockitoJUnitRunner.class)
-public class HopDataDaoTest {
+public class JsonFileDataSourceTest {
     public static final String testData = "/data/hopData.json";
 
     @InjectMocks
-    HopDataDao hopDataDao;
+    JsonFileDataSource jsonFileDataSource;
 
     @Before
     public void setUp() throws Exception {
-        hopDataDao.objectMapperSource = new ObjectMapperSource();
-
+        jsonFileDataSource.objectMapperSource = new ObjectMapperSource();
+        Map<String, String> dataMap = newHashMap();
+        dataMap.put(HopData.class.getName(), testData);
+        jsonFileDataSource.setDataPathMap(dataMap);
     }
 
     @Test
     public void testLoadData() throws Exception {
-        hopDataDao.loadData(getDefaultInputStream());
-        List<HopData> hopDatas = hopDataDao.getAllData();
+        List<HopData> hopDatas = jsonFileDataSource.loadData(HopData.class);
         assertNotNull(hopDatas);
         assertEquals(3, hopDatas.size());
         assertEquals("cascade", hopDatas.get(0).name);

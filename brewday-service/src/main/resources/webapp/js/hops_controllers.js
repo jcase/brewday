@@ -35,7 +35,6 @@ hopsControllers.controller('HopsCreationController', ['$scope', '$http',
             $scope.formData = {};
             $http.post('/api/hops', newHop)
                 .success(function(data, status, header, config) {
-                    alert('Creation worked!');
                     $scope.$emit('hopCreation', data);
                 })
                 .error(function(data, status, header, config) {

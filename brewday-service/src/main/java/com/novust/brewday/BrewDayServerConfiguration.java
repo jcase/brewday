@@ -1,6 +1,5 @@
 package com.novust.brewday;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.novust.shared.BrewdaySharedConfiguration;
 import org.apache.commons.lang3.StringUtils;
 import org.eclipse.jetty.server.*;
@@ -14,7 +13,6 @@ import org.reflections.Reflections;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
@@ -37,9 +35,6 @@ public class BrewDayServerConfiguration implements ApplicationContextAware {
     private static final Logger logger = LoggerFactory.getLogger(BrewDayServerConfiguration.class);
 
     ApplicationContext applicationContext;
-
-    @Autowired
-    BrewdaySharedConfiguration sharedConfiguration;
 
     @Value("${http.bindPort:8080}")
     private int httpBindPort;
@@ -138,11 +133,6 @@ public class BrewDayServerConfiguration implements ApplicationContextAware {
         ServletHolder servletHolder = new ServletHolder(servletContainer);
         servletContextHandler.addServlet(servletHolder, "/*");
         return servletContextHandler;
-    }
-
-    @Bean(name="defaultObjectMapper")
-    public ObjectMapper objectMapper() {
-        return new ObjectMapper();
     }
 
     static class ClassCollection {

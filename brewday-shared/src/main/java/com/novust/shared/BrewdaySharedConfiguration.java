@@ -1,6 +1,8 @@
 package com.novust.shared;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mongodb.MongoClient;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -15,8 +17,16 @@ public class BrewdaySharedConfiguration {
         System.out.println("hi mom");
     }
 
-    String host = "192.168.33.10";
-    String database = "brewday";
+    @Value("${mongodb.host:localhost}")
+    String host;
+
+    @Value("${mongodb.dbname:dbname}")
+    String database;
+
+    @Bean(name="defaultObjectMapper")
+    public ObjectMapper objectMapper() {
+        return new ObjectMapper();
+    }
 
     @Bean
     MongoClient mongoClient() {

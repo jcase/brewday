@@ -6,25 +6,24 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 
 import java.util.List;
-import java.util.Map;
 
-import static com.google.common.collect.Maps.newHashMap;
+import static com.google.common.collect.Lists.newArrayList;
 
 public class MongoDBDataSource implements AppDataSource {
     public static Logger logger = LoggerFactory.getLogger(MongoDBDataSource.class);
 
-    Map<String, String> dataTableMap = newHashMap();
+    List<String> mongoBackedData = newArrayList();
 
     @Autowired
     MongoTemplate mongoTemplate;
 
-    public void setDataTableMap(Map<String, String> dataTableMap) {
-        this.dataTableMap = dataTableMap;
+    public void setMongoBackedData(List<String> mongoBackedData) {
+        this.mongoBackedData = mongoBackedData;
     }
 
     @Override
     public boolean handlesClass(Class dataClass) {
-        return dataTableMap.containsKey(dataClass.getName());
+        return mongoBackedData.contains(dataClass.getName());
     }
 
     @Override

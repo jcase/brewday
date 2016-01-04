@@ -13,6 +13,7 @@
     <modules>
         <module>brewday-shared</module>
         <module>brewday-service</module>
+        <module>brewday-dataloader</module>
     </modules>
 
     <properties>

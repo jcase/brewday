@@ -36,10 +36,14 @@ public class JsonFileDataSource implements AppDataSource {
 
     @Override
     public List loadData(Class objectClass) {
+        return loadData(objectClass, getDataInputPath(objectClass));
+    }
+
+    public List loadData(Class objectClass, String dataInputPath) {
         ObjectMapper mapper = objectMapperSource.getObjectMapper();
         try {
             CollectionType collectionType = mapper.getTypeFactory().constructCollectionType(List.class, objectClass);
-            List data = mapper.readValue(getDataInputStream(objectClass), collectionType);
+            List data = mapper.readValue(getDefaultInputStream(dataInputPath), collectionType);
             return data;
         } catch (IOException e) {
             logger.error("Could not read data", e);
@@ -52,17 +56,16 @@ public class JsonFileDataSource implements AppDataSource {
         logger.warn("DataSource does not support adding data for data type {} !", data.getClass().getName());
     }
 
-    InputStream getDataInputStream(Class dataClass) {
+    String getDataInputPath(Class dataClass) {
         String name = dataClass.getName();
-        if(dataPathMap.containsKey(name)) {
-            return getDefaultInputStream(dataPathMap.get(name));
-        }
-        logger.error("Could not find any dataInputStream for dataClass {}", dataClass);
-        return null;
+        return dataPathMap.containsKey(name) ? dataPathMap.get(name) : null;
     }
 
-    InputStream getDefaultInputStream(String dataPath) {
+    InputStream getDefaultInputStream(String dataPath) throws IOException {
         InputStream resourceAsStream = getClass().getResourceAsStream(dataPath);
+        if(resourceAsStream == null) {
+            throw new IOException("Invalid dataPath " + dataPath);
+        }
         return resourceAsStream;
     }
 }

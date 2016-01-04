@@ -1,0 +1,10 @@
+[
+  {
+    "clazz":"com.novust.shared.data.YeastData",
+    "file":"/data/yeastData.json"
+  },
+  {
+    "clazz":"com.novust.shared.data.HopData",
+    "file":"/data/hopData.json"
+  }
+]

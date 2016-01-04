@@ -22,4 +22,13 @@ public class HopData implements AppData {
     public String getDescription() {
         return description;
     }
+
+    @Override
+    public String toString() {
+        return "HopData{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                '}';
+    }
 }

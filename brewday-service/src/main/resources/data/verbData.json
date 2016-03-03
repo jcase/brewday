@@ -1,0 +1,27 @@
+[
+  {
+    "id": "clean",
+    "name": "Clean",
+    "description": "Clean something"
+  },
+  {
+    "id": "heat",
+    "name": "Heat",
+    "description": "Warm things up"
+  },
+  {
+    "id": "peel",
+    "name": "Peel",
+    "description": "Remove skin"
+  },
+  {
+    "id": "add",
+    "name": "Add",
+    "description": "Put something in something"
+  },
+  {
+    "id": "boil",
+    "name": "Boil",
+    "description": "Turn liquid to gas"
+  }
+]

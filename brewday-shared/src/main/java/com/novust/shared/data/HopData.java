@@ -11,6 +11,7 @@ public class HopData implements AppData {
     public String name;
     public String description;
 
+    @Override
     public String getId() {
         return id;
     }

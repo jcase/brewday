@@ -8,7 +8,7 @@ http://www.springframework.org/schema/beans http://www.springframework.org/schem
     <bean id="jsonFileAppDataSource" class="com.novust.shared.dao.source.JsonFileDataSource">
         <property name="dataPathMap">
             <map>
-                <!-- currently nothing straight from JSON -->
+                <entry key="com.novust.shared.data.VerbData" value="/data/verbData.json" />
             </map>
         </property>
     </bean>

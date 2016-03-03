@@ -11,6 +11,11 @@ public class YeastData implements AppData {
     public int flocculation;
 
     @Override
+    public String getId() {
+        return id;
+    }
+
+    @Override
     public String toString() {
         return "YeastData{" +
                 "id='" + id + '\'' +

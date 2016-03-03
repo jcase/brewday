@@ -1,6 +1,7 @@
 package com.novust.shared.recipe;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.novust.shared.data.VerbData;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ComponentAction extends Action {
@@ -10,7 +11,7 @@ public class ComponentAction extends Action {
         super();
     }
 
-    public ComponentAction(String verb, Component component, long actionTime) {
+    public ComponentAction(VerbData verb, Component component, long actionTime) {
         super(verb, actionTime);
         this.component = component;
     }

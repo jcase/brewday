@@ -1,11 +1,12 @@
 package com.novust.shared.recipe;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.novust.shared.data.VerbData;
 import com.novust.shared.time.TimeType;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Action {
-    public String actionDescription;
+    public VerbData verb;
     protected TimeType actionTimeType;
     private Action relativeTo; // if timeType is relativeTo something
     protected long actionTime; // seconds offset
@@ -14,18 +15,18 @@ public class Action {
     public Action() {
     }
 
-    public Action(String description, long actionTime) {
-        this.actionDescription = description;
+    public Action(VerbData verb, long actionTime) {
+        this.verb = verb;
         this.actionTimeType = TimeType.ABSOLUTE;
         this.actionTime = actionTime;
     }
 
-    public String getActionDescription() {
-        return actionDescription;
+    public VerbData getVerb() {
+        return verb;
     }
 
-    public void setActionDescription(String actionDescription) {
-        this.actionDescription = actionDescription;
+    public void setVerb(VerbData verb) {
+        this.verb = verb;
     }
 
     public TimeType getActionTimeType() {

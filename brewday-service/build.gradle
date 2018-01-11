@@ -1,0 +1,20 @@
+
+description = ''
+dependencies {
+  compile project(':brewday-shared')
+    compile group: 'org.apache.commons', name: 'commons-lang3', version:'3.3.2'
+    compile group: 'commons-cli', name: 'commons-cli', version:'1.2'
+    compile group: 'org.springframework', name: 'spring-webmvc', version:'4.1.5.RELEASE'
+    compile group: 'org.reflections', name: 'reflections', version:'0.9.9'
+    compile group: 'org.eclipse.jetty', name: 'jetty-server', version:'9.2.7.v20150116'
+    compile group: 'org.eclipse.jetty', name: 'jetty-servlet', version:'9.2.7.v20150116'
+    compile group: 'org.eclipse.jetty', name: 'jetty-webapp', version:'9.2.7.v20150116'
+    compile group: 'org.glassfish.jersey.core', name: 'jersey-server', version:'2.16'
+    compile group: 'org.glassfish.jersey.containers', name: 'jersey-container-servlet-core', version:'2.16'
+    compile group: 'org.glassfish.jersey.media', name: 'jersey-media-json-jackson', version:'2.16'
+    compile(group: 'org.glassfish.jersey.ext', name: 'jersey-spring3', version:'2.16') {
+exclude(module: 'spring-web')
+exclude(module: 'spring-core')
+exclude(module: 'spring-context')
+    }
+}

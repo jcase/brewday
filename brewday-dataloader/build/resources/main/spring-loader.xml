@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+    <bean id="jsonFileDataSource" class="com.novust.shared.dao.source.JsonFileDataSource" />
+
+    <!-- Entries for all of the DAOs need to be here so things don't blow up when the loader tries to runs -->
+    <bean id="mongoDbAppDataSource" class="com.novust.shared.dao.source.MongoDBDataSource">
+        <property name="mongoBackedData">
+            <list>
+                <value>com.novust.shared.data.HopData</value>
+                <value>com.novust.shared.data.YeastData</value>
+            </list>
+        </property>
+    </bean>
+
+</beans>

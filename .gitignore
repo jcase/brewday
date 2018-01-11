@@ -4,3 +4,5 @@ target/
 .vagrant/
 .DS_Store
 .bundle/
+.gradle/
+build/

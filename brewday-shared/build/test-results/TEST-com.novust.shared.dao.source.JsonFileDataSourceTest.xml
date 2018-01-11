@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.novust.shared.dao.source.JsonFileDataSourceTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2018-01-11T05:24:54" hostname="Johns-MacBook-Pro.local" time="0.162">
+  <properties/>
+  <testcase name="testLoadData" classname="com.novust.shared.dao.source.JsonFileDataSourceTest" time="0.162"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

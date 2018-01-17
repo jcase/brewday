@@ -1,23 +1,23 @@
-allprojects  {
-  apply plugin: 'maven'
-
-  group = 'com.novust'
-  version = '1.0-SNAPSHOT'
+plugins {
+  id 'java'
 }
 
 apply from: 'dependencies.gradle'
 
-subprojects {
-  apply plugin: 'java'
+allprojects  {
+  group = 'com.novust'
+  version = '1.0-SNAPSHOT'
 
   sourceCompatibility = 1.8
   targetCompatibility = 1.8
 
-  
   repositories {
     mavenLocal()
-    
+
     maven { url "http://repo.maven.apache.org/maven2" }
   }
+}
 
+subprojects {
+  apply plugin: 'java'
 }

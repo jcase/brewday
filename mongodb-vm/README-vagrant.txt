@@ -3,7 +3,7 @@ We run mongdb in a Vagrant container
 see vagrant/Vagrantfile
 
 Creating:
-vagrant init debian/stretch64
+vagrant init
 
 To start the Vagrant VM instance:
 

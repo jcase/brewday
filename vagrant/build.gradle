@@ -1,0 +1,47 @@
+buildscript {
+    repositories {
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
+    }
+    dependencies {
+        classpath "com.bmuschko:gradle-vagrant-plugin:2.1"
+    }
+}
+
+plugins {
+    id "com.bmuschko.vagrant-base" version "2.1"
+}
+
+import com.bmuschko.gradle.vagrant.tasks.VagrantUp
+import com.bmuschko.gradle.vagrant.tasks.VagrantStatus
+import com.bmuschko.gradle.vagrant.tasks.VagrantHalt
+import com.bmuschko.gradle.vagrant.tasks.VagrantSuspend
+
+ext {
+    mongodbBox = file("${rootProject.projectDir}/setup/vagrant")
+}
+
+task start(type: VagrantUp) {
+    description = 'Starts VM machine running MongoDB.'
+    group = "MongoDB Group"
+    boxDir = mongodbBox
+}
+
+task status(type: VagrantStatus) {
+    description = 'Get status of VM machine running MongoDB.'
+    group = "MongoDB Group"
+    boxDir = mongodbBox
+}
+
+task halt(type: VagrantHalt) {
+    description = 'Get status of VM machine running MongoDB.'
+    group = "MongoDB Group"
+    boxDir = mongodbBox
+}
+
+task suspend(type: VagrantSuspend) {
+    description = 'Suspend VM machine running MongoDB.'
+    group = "MongoDB Group"
+    boxDir = mongodbBox
+}

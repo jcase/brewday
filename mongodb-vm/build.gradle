@@ -13,35 +13,37 @@ plugins {
     id "com.bmuschko.vagrant-base" version "2.1"
 }
 
-import com.bmuschko.gradle.vagrant.tasks.VagrantUp
-import com.bmuschko.gradle.vagrant.tasks.VagrantStatus
-import com.bmuschko.gradle.vagrant.tasks.VagrantHalt
-import com.bmuschko.gradle.vagrant.tasks.VagrantSuspend
-
 ext {
-    mongodbBox = file("${rootProject.projectDir}/setup/vagrant")
+    projectVagrantBoxName = "brewday-mongodb"
 }
 
-task start(type: VagrantUp) {
+vagrant {
+    boxDir = file("${projectDir}/vagrant")
+}
+
+import com.bmuschko.gradle.vagrant.tasks.Vagrant
+
+task start(type: Vagrant) {
     description = 'Starts VM machine running MongoDB.'
-    group = "MongoDB Group"
-    boxDir = mongodbBox
+    commands = ['up']
 }
 
-task status(type: VagrantStatus) {
+task status(type: Vagrant) {
     description = 'Get status of VM machine running MongoDB.'
-    group = "MongoDB Group"
-    boxDir = mongodbBox
+    commands = ['status']
 }
 
-task halt(type: VagrantHalt) {
+task halt(type: Vagrant) {
     description = 'Get status of VM machine running MongoDB.'
-    group = "MongoDB Group"
-    boxDir = mongodbBox
+    commands = ['halt']
 }
 
-task suspend(type: VagrantSuspend) {
+task suspend(type: Vagrant) {
     description = 'Suspend VM machine running MongoDB.'
-    group = "MongoDB Group"
-    boxDir = mongodbBox
+    commands = ['status']
+}
+
+task destroy(type: Vagrant) {
+    description = 'Destroy VM machine running MongoDB.'
+    commands = ['destroy','-f']
 }

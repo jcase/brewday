@@ -21,3 +21,12 @@ allprojects  {
 subprojects {
   apply plugin: 'java'
 }
+
+// Some useful top level aliases
+task('mongo-status', dependsOn: "mongodb-vm:status")
+
+task checkMongoStatus(type: MongoStatusChecker) {
+    description "Check mongodb status"
+    host "192.168.33.10"
+    port 27017
+}

@@ -1,0 +1,11 @@
+apply from: '../dependencies.gradle'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile libraries.mongo_java
+}
+
+

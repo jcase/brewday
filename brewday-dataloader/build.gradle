@@ -1,17 +1,14 @@
 buildscript {
-  repositories {
-    maven {
-      url "https://plugins.gradle.org/m2/"
-    }
-  }
   dependencies {
-    classpath "com.github.jengelman.gradle.plugins:shadow:2.0.4"
+    classpath libraries.shadowJar
   }
 }
 
 plugins {
   id 'org.springframework.boot' version '1.5.9.RELEASE'
   id "com.github.johnrengelman.shadow" version "2.0.4"
+  id "application"
+  id "java"
 }
 
 description = 'Load initial data into mongoDb'
@@ -24,12 +21,19 @@ dependencies {
   compile libraries.commons_cli
 }
 
+ext {
+  dataLoaderMain = 'com.novust.brewday.loader.DataLoader'
+}
+
 bootRepackage {
-  mainClass = 'com.novust.brewday.loader.DataLoader'
+  mainClass = dataLoaderMain
 }
 
 jar {
   baseName = 'dataloader'
 }
 
-
+runShadow {
+    mainClassName = dataLoaderMain
+    args '-f','/loader.dev.properties','-d','/dataloader.json'
+}

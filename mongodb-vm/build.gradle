@@ -13,11 +13,19 @@ plugins {
     id "com.bmuschko.vagrant-base" version "2.1"
 }
 
+apply from: '../gradle/loadableproperties.gradle'
+
 vagrant {
     boxDir = file("${projectDir}/vagrant")
 }
 
 import com.bmuschko.gradle.vagrant.tasks.Vagrant
+
+task mongoStatus(type: MongoStatusChecker) {
+    description "Check mongodb status"
+    host config.mongodb.host
+    port Integer.parseInt(config.mongodb.port)
+}
 
 task up(type: Vagrant) {
     description = 'Starts VM running MongoDB; may build and provision if needed'

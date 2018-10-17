@@ -15,18 +15,7 @@ allprojects  {
     mavenLocal()
 
     maven { url "http://repo.maven.apache.org/maven2" }
+    maven { url "https://plugins.gradle.org/m2/" }
   }
 }
 
-subprojects {
-  apply plugin: 'java'
-}
-
-// Some useful top level aliases
-task('mongo-status', dependsOn: "mongodb-vm:status")
-
-task checkMongoStatus(type: MongoStatusChecker) {
-    description "Check mongodb status"
-    host "192.168.33.10"
-    port 27017
-}

@@ -8,4 +8,3 @@ project(':brewday-shared').projectDir = "$rootDir/brewday-shared" as File
 project(':brewday-service').projectDir = "$rootDir/brewday-service" as File
 project(':brewday-dataloader').projectDir = "$rootDir/brewday-dataloader" as File
 project(':mongodb-vm').projectDir = "$rootDir/mongodb-vm" as File
-

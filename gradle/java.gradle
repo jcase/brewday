@@ -1,0 +1,4 @@
+apply plugin: 'java'
+
+def thisFyle = buildscript.sourceFile
+apply from: thisFyle.getParentFile().toPath().resolve('loadableproperties.gradle')

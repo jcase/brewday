@@ -14,8 +14,8 @@ public class DataLoader {
 
     public static void main(String[] args) throws ParseException {
         Options options = new Options();
-        options.addOption("f", true, "configFileLocation");
-        options.addOption("d", true, "dataloader configuration file (property)");
+        options.addOption("f", true, "configFileLocation (properties file)");
+        options.addOption("d", true, "dataloader configuration file (json file)");
 
         CommandLineParser parser = new BasicParser();
         CommandLine cmdLine = parser.parse(options, args);

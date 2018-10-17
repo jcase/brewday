@@ -29,7 +29,9 @@ public abstract class BaseDataDao<T extends AppData> implements DataDao<T> {
 
         appDataSource = appDataSourceFactory.getAppDataSource(getDataType());
         if(appDataSource == null) {
-            throw new IllegalStateException("Missing appDataSource for dataType " + getDataType().getName());
+            logger.warn("Missing appDataSource for dataType {}", getDataType().getName());
+            // throw new IllegalStateException("Missing appDataSource for dataType " + getDataType().getName());
+            return;
         }
         loadData();
     }

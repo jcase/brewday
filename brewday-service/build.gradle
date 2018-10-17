@@ -1,5 +1,7 @@
+apply plugin: 'java'
 
-description = ''
+description = 'Run brewday service'
+
 dependencies {
   compile project(':brewday-shared')
   compile libraries.commons_lang3

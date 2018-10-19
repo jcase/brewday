@@ -1,0 +1,2 @@
+def configFileName = hasProperty('config') ? config : "${rootDir}/dev.properties"
+project.ext.environmentConfigFile=configFileName

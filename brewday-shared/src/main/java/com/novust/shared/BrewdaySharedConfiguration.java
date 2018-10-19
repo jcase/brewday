@@ -13,9 +13,6 @@ import org.springframework.data.mongodb.core.SimpleMongoDbFactory;
 @Configuration
 @ComponentScan(basePackageClasses = { BrewdaySharedConfiguration.class})
 public class BrewdaySharedConfiguration {
-    public BrewdaySharedConfiguration() {
-        System.out.println("hi mom");
-    }
 
     @Value("${mongodb.host:localhost}")
     String host;

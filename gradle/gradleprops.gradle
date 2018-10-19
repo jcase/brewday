@@ -1,0 +1,14 @@
+def thisFyle = buildscript.sourceFile
+apply from: "${gradleScriptDir}/envpropconfig.gradle"
+
+loadProperties()
+
+def loadProperties() {
+    println "Current config file: " + project.ext.environmentConfigFile
+
+    def configFile = file(project.ext.environmentConfigFile)
+
+    def props = new Properties()
+    configFile.withInputStream { props.load(it) }
+    project.ext.config = new ConfigSlurper().parse(props)
+}

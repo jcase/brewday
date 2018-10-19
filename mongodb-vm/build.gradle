@@ -13,7 +13,7 @@ plugins {
     id "com.bmuschko.vagrant-base" version "2.1"
 }
 
-apply from: '../gradle/loadableproperties.gradle'
+apply from: "${gradleScriptDir}/gradleprops.gradle"
 
 vagrant {
     boxDir = file("${projectDir}/vagrant")

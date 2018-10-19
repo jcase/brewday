@@ -20,11 +20,15 @@ public class DataLoaderWorker {
     MongoTemplate mongoTemplate;
 
     public void loadData(String loaderFile) {
-        List data = jsonFileDataSource.loadData(LoaderData.class, loaderFile);
-        data.stream().forEach(d -> handleLoaderDataEntry((LoaderData) d));
+        List<LoaderData> data = jsonFileDataSource.loadData(LoaderData.class, loaderFile);
+        // TODO loadData will return a tuple saying if resources are a file or classpath resource.
+        // TODO let handleLoaderDataEntry know which
+        data.stream().forEach(d -> handleLoaderDataEntry(d));
     }
 
     void handleLoaderDataEntry(LoaderData loaderData)  {
+        // TODO we'll pass in whether or not we're using classpath or file resources. Use that information
+        // TODO when loading the resources. (if scheme is specified, use that, otherwise, use the specified scheme)
         Class<?> dataClass = null;
         try {
             dataClass = Class.forName(loaderData.clazz);

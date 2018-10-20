@@ -10,5 +10,5 @@ def loadProperties() {
 
     def props = new Properties()
     configFile.withInputStream { props.load(it) }
-    project.ext.config = new ConfigSlurper().parse(props)
+    project.ext.envconfig = new ConfigSlurper().parse(props)
 }

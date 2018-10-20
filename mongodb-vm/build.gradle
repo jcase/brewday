@@ -23,8 +23,8 @@ import com.bmuschko.gradle.vagrant.tasks.Vagrant
 
 task mongoStatus(type: MongoStatusChecker) {
     description "Check mongodb status"
-    host config.mongodb.host
-    port Integer.parseInt(config.mongodb.port)
+    host envconfig.mongodb.host
+    port Integer.parseInt(envconfig.mongodb.port)
 }
 
 task up(type: Vagrant) {

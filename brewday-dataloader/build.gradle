@@ -10,7 +10,7 @@ plugins {
   id "application"
   id "java"
 }
-apply from: "$gradleScriptDir/envpropconfig.gradle"
+apply from: "$gradleScriptDir/gradleprops.gradle"
 
 description = 'Load initial data into mongoDb'
 
@@ -36,5 +36,5 @@ jar {
 
 runShadow {
     mainClassName = dataLoaderMain
-    args '-f', project.ext.environmentConfigFile, '-d', 'classpath:dataloader.json'
+    args '-f', project.ext.environmentConfigFile, '-d', "$rootDir/${envconfig.brewday.sampledata}"
 }

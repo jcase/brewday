@@ -88,6 +88,7 @@ public class JsonFileDataSource implements AppDataSource {
 
     InputStream getDefaultInputStream(String dataPath) throws IOException, URISyntaxException {
         Resource dataPathResource = pathToResource(dataPath);
+        System.out.println("CURRENT DIRECTORY : " + System.getProperty("user.dir"));
         InputStream resourceAsStream = dataPathResource.getInputStream();
         if(resourceAsStream == null) {
             throw new IOException("Invalid dataPath " + dataPath);

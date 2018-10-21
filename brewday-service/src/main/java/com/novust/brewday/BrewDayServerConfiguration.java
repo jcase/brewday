@@ -44,9 +44,6 @@ public class BrewDayServerConfiguration implements ApplicationContextAware {
         this.applicationContext = applicationContext;
     }
 
-    @Value("${brewday.helloworld}")
-    String helloWorld;
-
     @Value("${http.port:8080}")
     int port;
 

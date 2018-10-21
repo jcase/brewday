@@ -1,4 +1,4 @@
-apply from: '../gradle/java.gradle'
+apply from: "$gradleScriptDir/java.gradle"
 
 description = 'Common libraries and utils'
 dependencies {
@@ -9,6 +9,7 @@ dependencies {
     compile libraries.spring_context
     compile libraries.spring_beans
     compile libraries.spring_mongodb
+    compile libraries.spring_mvc
     compile libraries.jackson_core
     compile libraries.jackson_annotations
     compile libraries.jackson_databind

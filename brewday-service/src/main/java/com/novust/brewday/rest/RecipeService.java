@@ -23,7 +23,6 @@ public class RecipeService {
     @Autowired
     RecipeSource recipeSource;
 
-    @Path("/")
     @Produces(MediaType.APPLICATION_JSON)
     @GET
     public Response list() {

@@ -8,9 +8,9 @@ plugins {
   id 'org.springframework.boot' version '1.5.9.RELEASE'
   id "com.github.johnrengelman.shadow" version "2.0.4"
   id "application"
-  id "java"
 }
-apply from: "$gradleScriptDir/gradleprops.gradle"
+
+apply from: "$gradleScriptDir/java.gradle"
 
 description = 'Load initial data into mongoDb'
 

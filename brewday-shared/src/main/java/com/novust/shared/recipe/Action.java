@@ -10,7 +10,7 @@ public class Action {
     protected TimeType actionTimeType;
     private Action relativeTo; // if timeType is relativeTo something
     protected long actionTime; // seconds offset
-    protected long actionDuration; // how long this thing takes.
+    protected long actionDuration; // how long this thing takes in seconds
 
     public Action() {
     }

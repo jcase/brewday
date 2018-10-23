@@ -4,8 +4,6 @@ apply from: "${gradleScriptDir}/envpropconfig.gradle"
 loadProperties()
 
 def loadProperties() {
-    println "Current config file: " + project.ext.environmentConfigFile
-
     def configFile = file(project.ext.environmentConfigFile)
 
     def props = new Properties()

@@ -1,7 +1,6 @@
-apply from: "$gradleScriptDir/java.gradle"
+apply from: "${gradleScriptDir}/gradleprops.gradle"
+apply from: "${gradleScriptDir}/java.gradle"
 apply plugin: "application"
-
-description = 'Run brewday service'
 
 dependencies {
   compile project(':brewday-shared')
@@ -19,5 +18,34 @@ dependencies {
   compile libraries.jersey_spring
 
 }
+
+ext {
+    serviceMain = "com.novust.brewday.BrewDayService"
+    classpathFile = "${projectDir}/brewday_service_classpath.txt"
+}
+
+mainClassName = serviceMain
+
+task writeClasspathFile(dependsOn: build) {
+    group = "Brewday Service"
+    description = 'Generate a file containing the necessary classpath to run the service'
+    outputs.files(classpathFile)
+    doLast {
+        def file1 = new File(classpathFile)
+        file1.withWriter('UTF-8') { writer ->
+            writer.write(sourceSets.main.runtimeClasspath.asPath)
+        }
+        println "Generated classpath file ${classpathFile}"
+    }
+}
+
+task runService(type: JavaExec, dependsOn: classes) {
+    group = "Brewday Service"
+    description = 'Run the service using a given config file'
+    classpath = sourceSets.main.runtimeClasspath
+    main = serviceMain
+    args '-f', project.ext.environmentConfigFile
+}
+
 
 

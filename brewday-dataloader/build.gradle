@@ -1,19 +1,9 @@
-buildscript {
-  dependencies {
-    classpath libraries.shadowJar
-  }
-}
-
 plugins {
   id 'org.springframework.boot' version '1.5.9.RELEASE'
-  id "com.github.johnrengelman.shadow" version "2.0.4"
-  id "application"
 }
 
 apply from: "$gradleScriptDir/java.gradle"
-
-description = 'Load initial data into mongoDb'
-
+apply plugin: "application"
 
 dependencies {
   compile project(':brewday-shared')
@@ -30,11 +20,10 @@ bootRepackage {
   mainClass = dataLoaderMain
 }
 
-jar {
-  baseName = 'dataloader'
-}
-
-runShadow {
-    mainClassName = dataLoaderMain
+task loadData (type: JavaExec, dependsOn: classes) {
+    group = "Brewday Dataloader"
+    description = 'Load a dataset into mongoDb'
+    classpath = sourceSets.main.runtimeClasspath
+    main = dataLoaderMain
     args '-f', project.ext.environmentConfigFile, '-d', "$rootDir/${envconfig.brewday.sampledata}"
 }
